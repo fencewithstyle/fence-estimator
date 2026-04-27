@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fence with Style - Estimator Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1B7752;
+            --primary-light: #2D9668;
+            --primary-dark: #0F4D35;
+            --secondary: #8FBC5A;
+            --accent: #FF8552;
+            --accent-dark: #E65C1F;
+            --bg: #F5F7F4;
+            --surface: #FFFFFF;
+            --text: #1A1A1A;
+            --text-muted: #6B7280;
+            --border: #D1D5DB;
+            --shadow: rgba(27, 119, 82, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, #E8EDE6 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header with Logo */
+        .brand-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            padding: 24px 40px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 24px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 133, 82, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .brand-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--secondary) 100%);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-container {
+            background: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-container img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .estimator-subtitle {
+            font-size: 18px;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 24px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 16px var(--shadow);
+            border: 1px solid rgba(27, 119, 82, 0.1);
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .panel-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, var(--accent) 0%, var(--primary) 100%);
+            border-radius: 2px;
+        }
+
+        .tools {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tool-btn {
+            padding: 16px 18px;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-btn::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            transition: width 0.3s ease;
+            z-index: 0;
+        }
+
+        .tool-btn:hover::before {
+            width: 100%;
+        }
+
+        .tool-btn:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .tool-btn:hover .tool-icon,
+        .tool-btn:hover span {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tool-btn.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tool-btn.active .tool-icon {
+            color: white;
+        }
+
+        .tool-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .canvas-container {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px var(--shadow);
+            border: 2px solid rgba(27, 119, 82, 0.1);
+        }
+
+        .canvas-controls {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .canvas-control-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .canvas-control-btn:hover:not(:disabled) {
+            background: white;
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .canvas-control-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        canvas {
+            display: block;
+            cursor: crosshair;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(27, 119, 82, 0.06) 19px, rgba(27, 119, 82, 0.06) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(27, 119, 82, 0.06) 19px, rgba(27, 119, 82, 0.06) 20px);
+        }
+
+        canvas.snap-active {
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(143, 188, 90, 0.25) 19px, rgba(143, 188, 90, 0.25) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(143, 188, 90, 0.25) 19px, rgba(143, 188, 90, 0.25) 20px);
+        }
+
+        .measurements {
+            display: grid;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .measurement-card {
+            background: linear-gradient(135deg, #F0F7ED 0%, white 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .measurement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%);
+        }
+
+        .measurement-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .measurement-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .measurement-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+        }
+
+        .measurement-unit {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .gates-list {
+            margin-top: 16px;
+        }
+
+        .gate-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #FFF5F0 0%, white 100%);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 2px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .gate-item:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .gate-label {
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gate-number {
+            background: var(--accent);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .gate-width {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .action-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 133, 82, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 133, 82, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--bg);
+        }
+
+        .scale-control {
+            margin-bottom: 24px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--bg) 0%, white 100%);
+            border-radius: 12px;
+            border: 2px solid var(--border);
+        }
+
+        .scale-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .scale-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="number"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(27, 119, 82, 0.1);
+        }
+
+        .checkbox-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px;
+            background: var(--bg);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-control:hover {
+            border-color: var(--primary);
+        }
+
+        .checkbox-control input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-control label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .coordinates {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(27, 119, 82, 0.95);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .snap-indicator {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: rgba(143, 188, 90, 0.95);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+        }
+
+        .snap-indicator.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="fence-logo.jpg" alt="Fence with Style" onerror="this.style.display='none'">
+                </div>
+                <div class="estimator-subtitle">Professional Estimator Tool</div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="panel">
+                <div class="panel-title">
+                    🛠️ Controls
+                </div>
+
+                <div class="scale-control">
+                    <label class="scale-label">Scale (pixels per foot)</label>
+                    <div class="scale-input">
+                        <input type="number" id="scaleInput" value="20" min="5" max="50" step="1">
+                        <span class="measurement-unit">px/ft</span>
+                    </div>
+                    <div class="help-text">Adjust to fit your property size.</div>
+                </div>
+
+                <div class="checkbox-control" onclick="document.getElementById('snapToggle').click()">
+                    <input type="checkbox" id="snapToggle" checked>
+                    <label for="snapToggle">Snap to Grid (20px)</label>
+                </div>
+
+                <div class="tools">
+                    <button class="tool-btn active" data-tool="fence">
+                        <span class="tool-icon">━</span>
+                        <span>Draw Fence Line</span>
+                    </button>
+                    <button class="tool-btn" data-tool="gate">
+                        <span class="tool-icon">⊟</span>
+                        <span>Add Gate</span>
+                    </button>
+                    <button class="tool-btn" data-tool="measure">
+                        <span class="tool-icon">📏</span>
+                        <span>Measure Distance</span>
+                    </button>
+                    <button class="tool-btn" data-tool="delete">
+                        <span class="tool-icon">🗑️</span>
+                        <span>Delete Element</span>
+                    </button>
+                </div>
+
+                <div class="action-btns">
+                    <button class="btn btn-secondary" id="clearBtn">Clear All</button>
+                    <button class="btn btn-primary" id="exportBtn">Export PDF</button>
+                </div>
+
+                <div class="measurements">
+                    <div class="measurement-card">
+                        <div class="measurement-label">Total Linear Feet</div>
+                        <div class="measurement-value" id="totalFeet">0</div>
+                        <div class="measurement-unit">feet</div>
+                    </div>
+                    <div class="measurement-card">
+                        <div class="measurement-label">Number of Gates</div>
+                        <div class="measurement-value" id="gateCount">0</div>
+                        <div class="measurement-unit">gates</div>
+                    </div>
+                    <div class="measurement-card">
+                        <div class="measurement-label">Total Gate Width</div>
+                        <div class="measurement-value" id="gateWidth">0</div>
+                        <div class="measurement-unit">feet</div>
+                    </div>
+                </div>
+
+                <div id="gatesList" class="gates-list"></div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">
+                    🎨 Drawing Canvas
+                </div>
+                <div class="canvas-container">
+                    <div class="canvas-controls">
+                        <button class="canvas-control-btn" id="undoBtn" disabled>↶ Undo</button>
+                        <button class="canvas-control-btn" id="redoBtn" disabled>↷ Redo</button>
+                    </div>
+                    <canvas id="canvas" width="900" height="650"></canvas>
+                    <div class="coordinates" id="coords">X: 0, Y: 0</div>
+                    <div class="snap-indicator" id="snapInd">● Snapped to grid</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class FenceEstimator {
+            constructor() {
+                this.canvas = document.getElementById('canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.scale = 20;
+                this.snapToGrid = true;
+                this.gridSize = 20;
+                
+                this.currentTool = 'fence';
+                this.fenceLines = [];
+                this.gates = [];
+                this.measurements = [];
+                
+                this.history = [];
+                this.historyIndex = -1;
+                
+                this.isDrawing = false;
+                this.currentLine = null;
+                this.startPoint = null;
+                
+                this.initializeEventListeners();
+                this.saveState();
+                this.render();
+            }
+
+            initializeEventListeners() {
+                document.querySelectorAll('.tool-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.currentTool = btn.dataset.tool;
+                        this.canvas.style.cursor = this.currentTool === 'delete' ? 'pointer' : 'crosshair';
+                    });
+                });
+
+                this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+                this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+                this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+                this.canvas.addEventListener('mouseleave', () => {
+                    this.isDrawing = false;
+                    this.currentLine = null;
+                });
+
+                document.getElementById('scaleInput').addEventListener('input', (e) => {
+                    this.scale = parseFloat(e.target.value);
+                    this.updateMeasurements();
+                    this.render();
+                });
+
+                document.getElementById('snapToggle').addEventListener('change', (e) => {
+                    this.snapToGrid = e.target.checked;
+                    this.canvas.classList.toggle('snap-active', this.snapToGrid);
+                });
+
+                document.getElementById('clearBtn').addEventListener('click', () => this.clearAll());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToPDF());
+                document.getElementById('undoBtn').addEventListener('click', () => this.undo());
+                document.getElementById('redoBtn').addEventListener('click', () => this.redo());
+            }
+
+            getMousePos(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                let y = e.clientY - rect.top;
+                
+                if (this.snapToGrid) {
+                    x = Math.round(x / this.gridSize) * this.gridSize;
+                    y = Math.round(y / this.gridSize) * this.gridSize;
+                    document.getElementById('snapInd').classList.add('active');
+                } else {
+                    document.getElementById('snapInd').classList.remove('active');
+                }
+                
+                return { x, y };
+            }
+
+            handleMouseDown(e) {
+                const pos = this.getMousePos(e);
+
+                if (this.currentTool === 'delete') {
+                    this.deleteElementAt(pos);
+                    return;
+                }
+
+                this.isDrawing = true;
+                this.startPoint = pos;
+
+                if (this.currentTool === 'fence' || this.currentTool === 'gate' || this.currentTool === 'measure') {
+                    this.currentLine = { start: pos, end: pos };
+                }
+            }
+
+            handleMouseMove(e) {
+                const pos = this.getMousePos(e);
+                
+                const feet = this.pixelsToFeet(pos.x, pos.y);
+                document.getElementById('coords').textContent = `X: ${feet.x.toFixed(1)}ft, Y: ${feet.y.toFixed(1)}ft`;
+
+                if (this.isDrawing && this.currentLine) {
+                    this.currentLine.end = pos;
+                    this.render();
+                }
+            }
+
+            handleMouseUp(e) {
+                if (!this.isDrawing) return;
+
+                const pos = this.getMousePos(e);
+                const dist = Math.sqrt(Math.pow(pos.x - this.startPoint.x, 2) + Math.pow(pos.y - this.startPoint.y, 2));
+                
+                if (dist < 5) {
+                    this.isDrawing = false;
+                    this.currentLine = null;
+                    return;
+                }
+
+                if (this.currentTool === 'fence') {
+                    this.fenceLines.push({ start: this.startPoint, end: pos, type: 'fence' });
+                } else if (this.currentTool === 'gate') {
+                    const gateNumber = this.gates.length + 1;
+                    this.gates.push({ start: this.startPoint, end: pos, type: 'gate', number: gateNumber });
+                } else if (this.currentTool === 'measure') {
+                    this.measurements.push({ start: this.startPoint, end: pos, type: 'measurement' });
+                }
+
+                this.isDrawing = false;
+                this.currentLine = null;
+                this.startPoint = null;
+                
+                this.saveState();
+                this.updateMeasurements();
+                this.render();
+            }
+
+            deleteElementAt(pos) {
+                const threshold = 15;
+                let deleted = false;
+
+                for (let i = this.fenceLines.length - 1; i >= 0; i--) {
+                    if (this.isPointNearLine(pos, this.fenceLines[i], threshold)) {
+                        this.fenceLines.splice(i, 1);
+                        deleted = true;
+                        break;
+                    }
+                }
+
+                if (!deleted) {
+                    for (let i = this.gates.length - 1; i >= 0; i--) {
+                        if (this.isPointNearLine(pos, this.gates[i], threshold)) {
+                            this.gates.splice(i, 1);
+                            this.gates.forEach((gate, idx) => gate.number = idx + 1);
+                            deleted = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!deleted) {
+                    for (let i = this.measurements.length - 1; i >= 0; i--) {
+                        if (this.isPointNearLine(pos, this.measurements[i], threshold)) {
+                            this.measurements.splice(i, 1);
+                            deleted = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (deleted) {
+                    this.saveState();
+                    this.updateMeasurements();
+                    this.render();
+                }
+            }
+
+            isPointNearLine(point, line, threshold) {
+                const { start, end } = line;
+                const A = point.x - start.x;
+                const B = point.y - start.y;
+                const C = end.x - start.x;
+                const D = end.y - start.y;
+                const dot = A * C + B * D;
+                const lenSq = C * C + D * D;
+                let param = lenSq !== 0 ? dot / lenSq : -1;
+
+                let xx, yy;
+                if (param < 0) {
+                    xx = start.x;
+                    yy = start.y;
+                } else if (param > 1) {
+                    xx = end.x;
+                    yy = end.y;
+                } else {
+                    xx = start.x + param * C;
+                    yy = start.y + param * D;
+                }
+
+                const dx = point.x - xx;
+                const dy = point.y - yy;
+                return Math.sqrt(dx * dx + dy * dy) < threshold;
+            }
+
+            pixelsToFeet(x, y = null) {
+                if (y === null) return x / this.scale;
+                return { x: x / this.scale, y: y / this.scale };
+            }
+
+            getLineLength(line) {
+                const dx = line.end.x - line.start.x;
+                const dy = line.end.y - line.start.y;
+                const pixels = Math.sqrt(dx * dx + dy * dy);
+                return this.pixelsToFeet(pixels);
+            }
+
+            updateMeasurements() {
+                let totalFeet = 0;
+                this.fenceLines.forEach(line => {
+                    totalFeet += this.getLineLength(line);
+                });
+
+                let totalGateWidth = 0;
+                this.gates.forEach(gate => {
+                    totalGateWidth += this.getLineLength(gate);
+                });
+
+                document.getElementById('totalFeet').textContent = totalFeet.toFixed(1);
+                document.getElementById('gateCount').textContent = this.gates.length;
+                document.getElementById('gateWidth').textContent = totalGateWidth.toFixed(1);
+
+                const gatesList = document.getElementById('gatesList');
+                if (this.gates.length > 0) {
+                    gatesList.innerHTML = '<div class="measurement-label" style="margin-bottom: 12px; padding-left: 16px;">Gate Details</div>';
+                    this.gates.forEach(gate => {
+                        const width = this.getLineLength(gate).toFixed(1);
+                        gatesList.innerHTML += `
+                            <div class="gate-item">
+                                <span class="gate-label">
+                                    <span class="gate-number">${gate.number}</span>
+                                    Gate ${gate.number}
+                                </span>
+                                <span class="gate-width">${width} ft</span>
+                            </div>
+                        `;
+                    });
+                } else {
+                    gatesList.innerHTML = '';
+                }
+            }
+
+            render() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                this.fenceLines.forEach(line => {
+                    this.drawLine(line, '#1B7752', 5);
+                    this.drawLabel(line, this.getLineLength(line).toFixed(1) + ' ft', '#1B7752');
+                    this.drawCircle(line.start, 4, '#1B7752');
+                    this.drawCircle(line.end, 4, '#1B7752');
+                });
+
+                this.gates.forEach(gate => {
+                    this.drawLine(gate, '#FF8552', 5, [12, 6]);
+                    const width = this.getLineLength(gate).toFixed(1);
+                    this.drawLabel(gate, `Gate ${gate.number}: ${width} ft`, '#FF8552');
+                    this.drawCircle(gate.start, 6, '#FF8552');
+                    this.drawCircle(gate.end, 6, '#FF8552');
+                });
+
+                this.measurements.forEach(measurement => {
+                    this.drawLine(measurement, '#3B82F6', 2, [5, 5]);
+                    this.drawLabel(measurement, this.getLineLength(measurement).toFixed(1) + ' ft', '#3B82F6');
+                    this.drawCircle(measurement.start, 4, '#3B82F6');
+                    this.drawCircle(measurement.end, 4, '#3B82F6');
+                });
+
+                if (this.isDrawing && this.currentLine) {
+                    let color = '#1B7752';
+                    let width = 5;
+                    let dash = [];
+                    
+                    if (this.currentTool === 'gate') {
+                        color = '#FF8552';
+                        dash = [12, 6];
+                    } else if (this.currentTool === 'measure') {
+                        color = '#3B82F6';
+                        width = 2;
+                        dash = [5, 5];
+                    }
+                    
+                    this.drawLine(this.currentLine, color, width, dash, 0.6);
+                    const length = this.getLineLength(this.currentLine).toFixed(1);
+                    this.drawLabel(this.currentLine, length + ' ft', color);
+                }
+            }
+
+            drawLine(line, color, width, dash = [], alpha = 1) {
+                this.ctx.save();
+                this.ctx.globalAlpha = alpha;
+                this.ctx.strokeStyle = color;
+                this.ctx.lineWidth = width;
+                this.ctx.lineCap = 'round';
+                
+                if (dash.length > 0) {
+                    this.ctx.setLineDash(dash);
+                }
+                
+                this.ctx.beginPath();
+                this.ctx.moveTo(line.start.x, line.start.y);
+                this.ctx.lineTo(line.end.x, line.end.y);
+                this.ctx.stroke();
+                
+                this.ctx.restore();
+            }
+
+            drawCircle(point, radius, color) {
+                this.ctx.save();
+                this.ctx.fillStyle = color;
+                this.ctx.beginPath();
+                this.ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+                this.ctx.fill();
+                this.ctx.restore();
+            }
+
+            drawLabel(line, text, color) {
+                const midX = (line.start.x + line.end.x) / 2;
+                const midY = (line.start.y + line.end.y) / 2;
+
+                this.ctx.save();
+                this.ctx.font = '700 13px "JetBrains Mono"';
+                this.ctx.textAlign = 'center';
+                this.ctx.textBaseline = 'middle';
+
+                const metrics = this.ctx.measureText(text);
+                const padding = 8;
+                this.ctx.fillStyle = 'white';
+                this.ctx.strokeStyle = color;
+                this.ctx.lineWidth = 2;
+                this.ctx.fillRect(
+                    midX - metrics.width / 2 - padding,
+                    midY - 11,
+                    metrics.width + padding * 2,
+                    22
+                );
+                this.ctx.strokeRect(
+                    midX - metrics.width / 2 - padding,
+                    midY - 11,
+                    metrics.width + padding * 2,
+                    22
+                );
+
+                this.ctx.fillStyle = color;
+                this.ctx.fillText(text, midX, midY);
+                this.ctx.restore();
+            }
+
+            saveState() {
+                const state = {
+                    fenceLines: JSON.parse(JSON.stringify(this.fenceLines)),
+                    gates: JSON.parse(JSON.stringify(this.gates)),
+                    measurements: JSON.parse(JSON.stringify(this.measurements))
+                };
+                
+                this.history = this.history.slice(0, this.historyIndex + 1);
+                this.history.push(state);
+                this.historyIndex++;
+                
+                if (this.history.length > 50) {
+                    this.history.shift();
+                    this.historyIndex--;
+                }
+                
+                this.updateUndoRedoButtons();
+            }
+
+            undo() {
+                if (this.historyIndex > 0) {
+                    this.historyIndex--;
+                    this.restoreState(this.history[this.historyIndex]);
+                }
+            }
+
+            redo() {
+                if (this.historyIndex < this.history.length - 1) {
+                    this.historyIndex++;
+                    this.restoreState(this.history[this.historyIndex]);
+                }
+            }
+
+            restoreState(state) {
+                this.fenceLines = JSON.parse(JSON.stringify(state.fenceLines));
+                this.gates = JSON.parse(JSON.stringify(state.gates));
+                this.measurements = JSON.parse(JSON.stringify(state.measurements));
+                this.updateMeasurements();
+                this.render();
+                this.updateUndoRedoButtons();
+            }
+
+            updateUndoRedoButtons() {
+                document.getElementById('undoBtn').disabled = this.historyIndex <= 0;
+                document.getElementById('redoBtn').disabled = this.historyIndex >= this.history.length - 1;
+            }
+
+            clearAll() {
+                if (confirm('Clear all drawings? This cannot be undone.')) {
+                    this.fenceLines = [];
+                    this.gates = [];
+                    this.measurements = [];
+                    this.saveState();
+                    this.updateMeasurements();
+                    this.render();
+                }
+            }
+
+            exportToPDF() {
+                const data = {
+                    totalFeet: parseFloat(document.getElementById('totalFeet').textContent),
+                    gateCount: this.gates.length,
+                    totalGateWidth: parseFloat(document.getElementById('gateWidth').textContent),
+                    gates: this.gates.map(gate => ({
+                        number: gate.number,
+                        width: this.getLineLength(gate).toFixed(1)
+                    }))
+                };
+
+                let summary = `FENCE WITH STYLE - ESTIMATE SUMMARY\n\n`;
+                summary += `Total Linear Feet: ${data.totalFeet.toFixed(1)} ft\n`;
+                summary += `Number of Gates: ${data.gateCount}\n`;
+                summary += `Total Gate Width: ${data.totalGateWidth.toFixed(1)} ft\n\n`;
+                
+                if (data.gates.length > 0) {
+                    summary += `GATE DETAILS:\n`;
+                    data.gates.forEach(gate => {
+                        summary += `  Gate ${gate.number}: ${gate.width} ft\n`;
+                    });
+                }
+
+                alert(summary + '\n\nTip: Use browser Print (Ctrl+P) to save as PDF with the drawing!');
+                window.print();
+            }
+        }
+
+        const estimator = new FenceEstimator();
+    </script>
+</body>
+</html>
